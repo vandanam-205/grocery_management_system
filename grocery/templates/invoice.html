@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.invoice-container {
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 900px;
+    width: 100%;
+}
+
+h1, h2 {
+    color: #2c3e50;
+    margin: 0 0 10px 0;
+}
+
+.invoice-details, .invoice-items, .total-amount {
+    margin-bottom: 25px;
+}
+
+.invoice-details p, .total-amount p {
+    font-size: 18px;
+    color: #34495e;
+}
+
+.invoice-details span, .total-amount span {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ecf0f1;
+    padding: 15px;
+    text-align: left;
+}
+
+table th {
+    background-color: #ecf0f1; /* Light grey */
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table-total {
+    text-align: right;
+}
+
+.total-amount p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #27ae60; /* Green color */
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #27ae60;
+    border: none;
+    border-radius: 8px; /* Adding border radius */
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2ecc71;
+}
+
+    </style>
+</head>
+<body>
+ <div class="invoice-container"> 
+ <h1>Invoice</h1> 
+ <div class="invoice-details"> 
+ <h2>Payment Confirmation</h2> 
+ <p>Transaction ID: <span id="transaction-id">{{ payment.transaction_id }}</span></p> 
+ <p>Payment Method: <span id="payment-method">{{ payment.payment_method }}</span></p>
+  <p>Payment Status: <span id="payment-status">{{ payment.payment_status }}</span></p> 
+  </div> 
+  <div class="invoice-items"> 
+  <h2>Products</h2> 
+  <table> <thead>
+   <tr> <th>Product</th>
+    <th>Quantity</th>
+     <th>Price</th> 
+     <th>Total</th> 
+     </tr> </thead> 
+     <tbody> {% for product in products %} 
+     <tr> <td>{{ product.name }}
+     </td> <td>{{ product.quantity }}</td> 
+     <td>${{ product.price }}</td> 
+     <td>${{ product.quantity|multiply:product.price }}</td>
+      </tr> {% endfor %} </tbody> </table> </div> 
+      <div class="total-amount"> <h2>Total Amount</h2> 
+      <p><span id="total-amount">${{ payment.total_amount }}</span></p> 
+      </div> 
+      <a href="{% url 'home' %}" class="button">Go Back to Home</a> 
+      </div>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment Form</title>
+    <style>
+        /* Base Styles */
+        body
+ {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(#e7779d, #d770d4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 400px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label {
+            top: 0;
+            left: 10px;
+            font-size: 0.8rem;
+            color: #fff;
+            background: #bcbbbd;
+            padding: 0 5px;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #28da3a, #2ce6af);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg,  #30a07f, #35873d);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* Keyframes for animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>UPI Payment</h2>
+        <form id="upiForm" method="post" action="">{% csrf_token %}
+            <div class="form-group">
+                <input type="text" id="name" placeholder=" " value="{{data}}" required readonly />
+                <label for="name">Full Name</label>
+            </div>
+
+           
+
+            <div class="form-group">
+                <input type="text" id="upi" placeholder=" " name="upiid" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z]+" />
+                <label for="upi">UPI ID</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="email" name="password" placeholder=" " required />
+                <label for="email">password</label>
+            </div>
+
+            {% if request.session.price %}
+            <div class="form-group">
+                <input type="text" id="upi" placeholder=" " name="amount" value="{{request.session.price}} " required readonly />
+                <label for="upi">amount</label>
+            </div>
+        {% else %}
+            <div class="form-group">
+                <input type="text" id="upi" placeholder=" " name="amount" value=" {{request.session.finalprice}}" required readonly />
+                <label for="upi">amount</label>
+            </div>
+        {% endif %}
+
+
+            
+            <div class="form-group">
+                <input type="text" id="upi" placeholder=" " name="address" required  />
+                <label for="upi">address</label>
+            </div>
+
+            
+            <div class="form-group">
+                <input type="text" id="upi" placeholder=" " name="no" required  />
+                <label for="upi">mobile-no</label>
+            </div>
+
+            <button type="submit" class="submit-btn">Pay Now</button>
+        </form>
+    </div>
+</body>
+
+</html>

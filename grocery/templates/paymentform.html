@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPI Payment Form</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f7fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      max-width: 100%;
+      border: 1px solid #ddd;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 26px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 16px;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      color: #333;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      transition: border 0.3s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #2575fc;
+      outline: none;
+    }
+
+    .form-group input[type="number"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      -webkit-rtl-ordering: logical;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #2575fc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1a5bb8;
+    }
+
+    button:active {
+      background-color: #164e92;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .payment-status {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .payment-status.error {
+      color: #e74c3c;
+    }
+
+    /* Media Query for Mobile Responsiveness */
+    @media screen and (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      .form-group label {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Select Payment Option:</h2>
+    <hr style="margin-bottom: 10px;">
+    <form id="paymentForm" onsubmit="return handlePaymentRedirect();">
+      <!-- Cash on Delivery Button --><a href="/cashondelivery/">
+      <button type="button"  style="padding: 10px; background-color: #2ecc71; color: white; border: none; border-radius: 6px; font-size: 18px;">
+        Cash on Delivery
+      </button>   </a>
+  
+      <!-- Payment Method Selection -->
+      <hr style="margin-bottom: 10px;">
+      <div class="payment-method" style="margin-top: 20px;">
+        <label for="paymentMethod" style="margin-top: 20px; font-weight: 700; color: #e74c3c; font-size: 19px;">
+          Online Payment
+
+        </label>
+        
+        <select id="paymentMethod" name="paymentMethod" required style="font-size: 20px; margin-bottom: 20px; color: white; font-weight: 700; padding: 10px; margin-top: 10px; border-radius: 6px; background-color: #2b74f2;">
+          <option value="">-- Select Payment Method --</option>
+         
+          <option value="cardPayment">Card Payment</option>
+          <option value="upiPayment">UPI Payment</option>
+        </select>
+  
+        <!-- Payment Button -->
+        <button type="submit" style="padding: 10px; background-color: #3498db; color: white; border: none; border-radius: 6px; font-size: 18px;">
+          Proceed to Payment
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+    function handlePaymentRedirect() {
+      // Get the selected payment method
+      const paymentMethod = document.getElementById("paymentMethod").value;
+  
+      // Redirect based on the selected payment method
+      if (paymentMethod === "netBanking") {
+        window.location.href = "netbanking_form.html"; // Redirect to Net Banking form
+      } else if (paymentMethod === "cardPayment") {
+          
+        window.location.href = "{% url 'card' %}"; // Redirect to Card Payment form
+      } else if (paymentMethod === "upiPayment") {
+        window.location.href = "{% url 'upi' %}"; // Redirect to UPI Payment form
+      } else {
+        alert("Please select a payment method!"); // Alert if no option is selected
+        return false; // Prevent form submission
+      }
+  
+      return false; // Prevent default form submission
+    }
+  </script>
+  
+  
+
+ 
+
+</body>
+</html>

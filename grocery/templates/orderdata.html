@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {%  if request.session.finalprice %}
+        {{request.session.finalprice}}
+        {% for i in data %}
+            {{i.productid}}-
+            {{i.productname}}-
+            {{i.unit}}-
+            {{i.price}}-
+            {{i.quantity}}
+        {% endfor%}
+    {% else %}
+        {{request.session.price}}
+        {{request.session.productid}}
+        {{request.session.unit}}
+        {{request.session.productname}}
+       
+    {% endif %}
+   <a href="/final/"><button>final</button></a>
+</body>
+</html>
